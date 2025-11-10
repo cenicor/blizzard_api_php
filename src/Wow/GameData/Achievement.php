@@ -11,6 +11,29 @@ use stdClass;
 class Achievement extends GenericDataEndpoint
 {
     /**
+     * Returns an index of achievements.
+     * @param array $options Request options
+     * @return stdClass
+     * @throws ApiException
+     */
+    public function index(array $options = []): stdClass
+    {
+        return $this->apiRequest("{$this->endpointUri()}/index", $this->defaultOptions($options));
+    }
+
+    /**
+     * Returns a single achievement by ID.
+     * @param int $id Achievement ID
+     * @param array $options Request options
+     * @return stdClass
+     * @throws ApiException
+     */
+    public function get(int $id, array $options = []): stdClass
+    {
+        return $this->apiRequest("{$this->endpointUri()}/$id", $this->defaultOptions($options));
+    }
+
+    /**
      * Returns an index of achievement categories
      * @param array $options Request options
      * @return stdClass
