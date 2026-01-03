@@ -150,6 +150,22 @@ class CharacterProfile extends Request
     }
 
     /**
+     * Return character toys
+     *
+     * @see https://develop.battle.net/documentation/api-reference/world-of-warcraft-profile-api
+     *
+     * @param string $realm Realm name
+     * @param string $character Character name
+     * @param array $options Request options
+     * @return stdClass
+     * @throws ApiException
+     */
+    public function toys(string $realm, string $character, array $options = []): stdClass
+    {
+        return $this->characterRequest($realm, $character, 'collections/toys', $options);
+    }
+
+    /**
      * Return character encounters
      *
      * @see https://develop.battle.net/documentation/api-reference/world-of-warcraft-profile-api
