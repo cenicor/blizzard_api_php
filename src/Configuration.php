@@ -6,9 +6,9 @@ use BlizzardApi\Enumerators\Region;
 
 class Configuration
 {
-    public static string $apiKey;
-    public static string $apiSecret;
-    public static Region $region;
+    public static ?string $apiKey = null;
+    public static ?string $apiSecret = null;
+    public static ?Region $region = null;
 
     public static string $redirectURI;
 

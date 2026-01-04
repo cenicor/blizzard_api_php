@@ -26,9 +26,9 @@ class Request
     protected string $accessToken;
 
     /**
-     * @var Region $region API region
+     * @var Region|null $region API region
      */
-    protected Region $region;
+    protected Region|null $region;
 
     /**
      * @var Game $game Game name
@@ -161,9 +161,16 @@ class Request
     /**
      * @param BaseURL $scope API scope to apply the base URL
      * @return string Base URL to call endpoints
+     * @throws ApiException If region is not configured
      */
     protected function baseUrl(BaseURL $scope): string
     {
+        if ($this->region === null) {
+            throw new ApiException(
+                'Region must be configured before making API requests. Set Configuration::$region or pass it to the constructor.'
+            );
+        }
+
         return sprintf($scope->value, $this->region->value, $this->game->value);
     }
 
@@ -260,9 +267,15 @@ class Request
      * @param EndpointNamespace $namespace The endpoint namespace
      * @param EndpointVersion $version The desired version of the endpoint
      * @return string The appropriate namespace for the endpoint namespace, version and region
-     */
+     * @throws ApiException If region is not configured
+ */
     protected function endpointNamespace(EndpointNamespace $namespace, EndpointVersion $version = EndpointVersion::retail): string
     {
+        if ($this->region === null) {
+            throw new ApiException(
+                'Region must be configured before making API requests. Set Configuration::$region or pass it to the constructor.'
+            );
+        }
         return sprintf($namespace->value, sprintf($version->value, $this->region->value));
     }
 
